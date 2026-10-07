@@ -6,8 +6,8 @@ export const CONFIG = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   JWT_SECRET: process.env.JWT_SECRET || 'mini-ipl-super-secret-jwt-key-2026-production-ready',
   APP_URL: process.env.APP_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || process.env.APP_URL || 'http://localhost:3000',
-  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000',
+  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || process.env.APP_URL || 'https://idyllic-youtiao-34126e.netlify.app',
+  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com',
 
   TOURNAMENT_NAME: process.env.TOURNAMENT_NAME || 'Mini IPL Cricket Tournament 2026',
   REGISTRATION_FEE: Number(process.env.REGISTRATION_FEE) || 208,
