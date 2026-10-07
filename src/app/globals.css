@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-main: #05070D;
+    --surface: #0B101C;
+    --card: #111827;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --primary-gold: #FFC928;
+    --light-gold: #FFD84D;
+    --text-primary: #F8FAFC;
+    --text-muted: #8C97AA;
+    --success: #22C55E;
+  }
+
+  body {
+    color: #F8FAFC;
+    background-color: #05070D;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Primary Gold Button */
+.btn-gold {
+  background-color: #FFC928;
+  color: #080A0F;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-gold:hover {
+  background-color: #FFD84D;
+  box-shadow: 0 4px 20px rgba(255, 201, 40, 0.25);
+}
+
+/* Secondary Dark Surface Button */
+.btn-secondary-dark {
+  background-color: rgba(12, 16, 24, 0.88);
+  color: #F5F7FA;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-secondary-dark:hover {
+  background-color: rgba(25, 30, 40, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Surface Card */
+.surface-card {
+  background: #0B101C;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.surface-card:hover {
+  border-color: rgba(255, 201, 40, 0.3);
+}
+
+/* Live Pulse Animation */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.15); }
+}
+
+.live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22C55E;
+  animation: live-pulse 2s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #05070D;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 201, 40, 0.4);
+}
+
+/* Reduced Motion Respect */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

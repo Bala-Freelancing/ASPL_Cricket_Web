@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ipl-web-api-server
+    env: node
+    buildCommand: npm install && npx prisma db push && npx tsx scripts/seed-test-data.ts && npx tsx scripts/ensure-admin.ts
+    startCommand: npx tsx src/server/index.ts
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        value: aspl-2026-production-super-secret-jwt-key
+      - key: APP_URL
+        value: https://idyllic-youtiao-34126e.netlify.app

@@ -1,0 +1,232 @@
+// Prisma Schema for Mini IPL Auction Platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String   @id @default(uuid())
+  name               String
+  email              String   @unique
+  phone              String   @unique
+  passwordHash       String
+  role               String   @default("PLAYER") // PLAYER, TEAM_OWNER, ADMIN
+  mustChangePassword Boolean  @default(false)
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  player             Player?
+  ownedTeam          Team?             @relation("TeamOwner")
+  createdInvitations OwnerInvitation[] @relation("CreatedByAdmin")
+  bids               Bid[]
+  auditLogs          AuditLog[]
+}
+
+model Team {
+  id             String   @id @default(uuid())
+  name           String   @unique
+  shortCode      String   @unique
+  logoUrl        String?
+  ownerUserId    String?  @unique
+  initialPurse   Float    @default(1000000.0)
+  remainingPurse Float    @default(1000000.0)
+  maxSquadSize   Int      @default(15)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  owner          User?             @relation("TeamOwner", fields: [ownerUserId], references: [id])
+  players        Player[]          @relation("TeamSquad")
+  invitations    OwnerInvitation[]
+  bids           Bid[]
+  winningAuctions Auction[]        @relation("WinningTeam")
+  auctionResults AuctionResult[]   @relation("WinningTeamResults")
+  matchesAsTeamA Match[]           @relation("MatchTeamA")
+  matchesAsTeamB Match[]           @relation("MatchTeamB")
+}
+
+model Player {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  playerCode         String?  @unique // Human readable ID e.g. IPL26-P0001
+  name               String
+  phone              String
+  whatsappNumber     String?  // Normalized E.164 e.g. +919876543210
+  email              String
+  category           String   // Batsman, Bowler, All-Rounder, Wicketkeeper
+  age                Int
+  dob                String?  // YYYY-MM-DD
+  aadharNumber       String?  // 12 digit Aadhaar
+  aadharPhoto        String?  // File URL / Base64 image
+  tshirtSize         String?  // S, M, L, XL, XXL
+  isWicketkeeper     Boolean  @default(false)
+  battingStyle       String   // Right-hand, Left-hand
+  bowlingStyle       String   // Right-arm Fast, Right-arm Spin, Left-arm Fast, Left-arm Spin, None
+  pincode            String?  // 6 digit Pin code
+  description        String?  // Player bio / description
+  profilePhoto       String?  // Player photo URL / Base64 image
+  basePrice          Float    @default(5000.0)
+  registrationStatus String   @default("PENDING") // PENDING, PAID, ADMIN_VERIFIED, REJECTED
+  paymentStatus      String   @default("PENDING") // PENDING, SUCCESS, FAILED, REFUNDED
+  auctionStatus      String   @default("REGISTERED") // REGISTERED, PAYMENT_VERIFIED, ADMIN_VERIFIED, AVAILABLE, LIVE_AUCTION, SOLD, UNSOLD
+  assignedTeamId     String?
+  winningBid         Float?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user                  User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignedTeam          Team?                  @relation("TeamSquad", fields: [assignedTeamId], references: [id])
+  payments              Payment[]
+  auctions              Auction[]
+  bids                  Bid[]
+  auctionResults        AuctionResult[]
+  whatsappNotifications WhatsappNotification[]
+}
+
+model Payment {
+  id                String   @id @default(uuid())
+  playerId          String
+  provider          String   @default("CASHFREE")
+  providerOrderId   String   @unique
+  providerPaymentId String?
+  paymentMethod     String?
+  amount            Float    @default(208.0)
+  currency          String   @default("INR")
+  status            String   @default("PENDING") // PENDING, PROCESSING, SUCCESS, FAILED, CANCELLED, EXPIRED, REFUNDED
+  providerResponse  String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+model OwnerInvitation {
+  id        String    @id @default(uuid())
+  teamId    String
+  email     String
+  phone     String
+  tokenHash String    @unique
+  status    String    @default("PENDING") // PENDING, ACCEPTED, EXPIRED, REVOKED
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  team    Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  creator User @relation("CreatedByAdmin", fields: [createdBy], references: [id])
+}
+
+model Auction {
+  id                   String    @id @default(uuid())
+  playerId             String
+  state                String    @default("IDLE") // IDLE, ACTIVE, PAUSED, COMPLETED
+  basePrice            Float
+  minIncrement         Float     @default(500.0)
+  currentBid           Float     @default(0.0)
+  currentWinningTeamId String?
+  timerExpiresAt       DateTime?
+  startedAt            DateTime?
+  endedAt              DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  player             Player         @relation(fields: [playerId], references: [id], onDelete: Restrict)
+  currentWinningTeam Team?          @relation("WinningTeam", fields: [currentWinningTeamId], references: [id])
+  bids               Bid[]
+  result             AuctionResult?
+}
+
+model Bid {
+  id             String   @id @default(uuid())
+  auctionId      String
+  playerId       String
+  teamId         String
+  userId         String
+  amount         Float
+  sequenceNumber Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  auction Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  player  Player  @relation(fields: [playerId], references: [id])
+  team    Team    @relation(fields: [teamId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+}
+
+model AuctionResult {
+  id            String   @id @default(uuid())
+  auctionId     String   @unique
+  playerId      String
+  winningTeamId String?
+  winningBid    Float?
+  result        String   // SOLD or UNSOLD
+  completedAt   DateTime @default(now())
+
+  auction     Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  player      Player  @relation(fields: [playerId], references: [id])
+  winningTeam Team?   @relation("WinningTeamResults", fields: [winningTeamId], references: [id])
+}
+
+model WhatsappNotification {
+  id                String    @id @default(uuid())
+  playerId          String
+  recipientNumber   String    // E.164 normalized number e.g. +919876543210
+  messageTemplate   String?   // player_registration_success
+  providerMessageId String?   // Meta Message ID
+  status            String    @default("PENDING") // PENDING, SENT, DELIVERED, FAILED
+  errorMessage      String?
+  sentAt            DateTime?
+  deliveredAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id               String    @id @default(uuid())
+  recipient        String
+  type             String
+  provider         String
+  status           String    @default("PENDING") // PENDING, SENT, DELIVERED, FAILED
+  messageReference String?
+  payload          String?
+  errorMessage     String?
+  sentAt           DateTime?
+  createdAt        DateTime  @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  action     String
+  entityType String
+  entityId   String?
+  metadata   String?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model Match {
+  id        String   @id @default(uuid())
+  matchNo   Int
+  teamAId   String
+  teamBId   String
+  venue     String   @default("ASPL Cricket Ground")
+  matchDate DateTime
+  status    String   @default("UPCOMING") // UPCOMING, LIVE, COMPLETED, POSTPONED, CANCELLED
+  result    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teamA Team @relation("MatchTeamA", fields: [teamAId], references: [id], onDelete: Cascade)
+  teamB Team @relation("MatchTeamB", fields: [teamBId], references: [id], onDelete: Cascade)
+}
+
