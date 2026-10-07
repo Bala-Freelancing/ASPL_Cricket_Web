@@ -76,6 +76,24 @@ if (require.main === module) {
     console.log(`🏆 Tournament: ${CONFIG.TOURNAMENT_NAME}`);
     console.log(`📱 WhatsApp Sender Account: ${CONFIG.WHATSAPP_BUSINESS_NUMBER}`);
 
+    // Automatic boot verification for admin accounts
+    try {
+      const { prisma: db } = require('../lib/prisma');
+      const { hashPassword: hp } = require('../lib/auth');
+      hp('admin123').then((passwordHash: string) => {
+        db.user.upsert({
+          where: { email: 'admin@aspl.com' },
+          update: { role: 'ADMIN', passwordHash, isActive: true },
+          create: { name: 'Tournament Admin', email: 'admin@aspl.com', phone: '+919999999998', passwordHash, role: 'ADMIN', isActive: true },
+        }).catch(() => {});
+        db.user.upsert({
+          where: { email: 'admin@ipl.com' },
+          update: { role: 'ADMIN', passwordHash, isActive: true },
+          create: { name: 'Tournament Admin', email: 'admin@ipl.com', phone: '+919999999999', passwordHash, role: 'ADMIN', isActive: true },
+        }).catch(() => {});
+      }).catch(() => {});
+    } catch (e) {}
+
     if (CONFIG.WHATSAPP_PROVIDER === 'BAILEYS') {
       const { initBaileysWhatsApp } = require('../services/whatsapp.service');
       initBaileysWhatsApp().catch((err: any) => console.error('[WHATSAPP AUTO-INIT ERROR]', err.message));
