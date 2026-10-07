@@ -22,7 +22,7 @@ export default function AdminAuctionConsolePage() {
   const [error, setError] = useState('');
   const [imgError, setImgError] = useState(false);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
   const getHeaders = () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';

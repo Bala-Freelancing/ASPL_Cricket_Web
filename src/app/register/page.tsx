@@ -64,7 +64,7 @@ function RegisterFormContent() {
   const [paymentData, setPaymentData] = useState<any>(null);
   const [verifiedResult, setVerifiedResult] = useState<any>(null);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
   // Handle return from Cashfree payment gateway redirect
   useEffect(() => {

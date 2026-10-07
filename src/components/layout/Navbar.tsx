@@ -21,7 +21,7 @@ export default function Navbar() {
       setUser(JSON.parse(userData));
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
     // Check if an auction is currently active
     const checkAuctionStatus = () => {

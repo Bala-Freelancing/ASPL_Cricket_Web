@@ -14,7 +14,7 @@ export default function ChangePasswordPage() {
   const [success, setSuccess] = useState('');
   const router = useRouter();
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();

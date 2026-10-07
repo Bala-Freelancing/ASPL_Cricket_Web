@@ -26,7 +26,7 @@ export default function OwnerDashboardPage() {
   const [bidError, setBidError] = useState('');
   const [bidSuccess, setBidSuccess] = useState('');
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
   const fetchSessionAndTeam = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';

@@ -33,7 +33,7 @@ export default function HomePage() {
   });
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
 
     // Fetch current active auction lot
     fetch(`${apiUrl}/api/auction/current`)
