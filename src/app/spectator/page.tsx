@@ -20,7 +20,7 @@ export default function SpectatorPage() {
       .catch(() => {});
 
     const socket = io(API_URL, {
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
     });
     socket.emit('auction:join');
 

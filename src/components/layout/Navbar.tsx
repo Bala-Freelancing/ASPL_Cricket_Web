@@ -44,7 +44,7 @@ export default function Navbar() {
 
     // Real-time socket sync
     const socket = io(apiUrl, {
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
     });
     socket.emit('auction:join');
 

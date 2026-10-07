@@ -71,7 +71,7 @@ export default function OwnerDashboardPage() {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
     const newSocket = io(API_URL, {
       auth: { token },
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
     });
 
     newSocket.emit('auction:join');
