@@ -167,7 +167,11 @@ router.get('/', async (req, res) => {
     const where: any = {};
 
     if (status) {
-      where.auctionStatus = String(status);
+      if (String(status) === 'AVAILABLE') {
+        where.auctionStatus = { in: ['AVAILABLE', 'ADMIN_VERIFIED'] };
+      } else {
+        where.auctionStatus = String(status);
+      }
     }
 
     if (category) {

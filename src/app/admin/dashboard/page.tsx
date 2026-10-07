@@ -18,6 +18,8 @@ import {
   Send,
 } from 'lucide-react';
 
+import { API_BASE_URL } from '@/lib/constants';
+
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<any>(null);
   const [players, setPlayers] = useState<any[]>([]);
@@ -36,7 +38,7 @@ export default function AdminDashboardPage() {
   const [msg, setMsg] = useState('');
   const [error, setError] = useState('');
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+  const API_URL = API_BASE_URL;
 
   const getHeaders = () => {
     const token = localStorage.getItem('token');
@@ -232,10 +234,10 @@ export default function AdminDashboardPage() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-white uppercase">WhatsApp Sender Device</span>
+                <span className="text-xs font-bold text-white uppercase">WhatsApp Sender Account</span>
                 <span className="text-xs font-mono font-bold text-amber-400">({whatsappStatus?.senderNumber || '8056687724'})</span>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${whatsappStatus?.status === 'CONNECTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : whatsappStatus?.status === 'QR_READY' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'}`}>
-                  {whatsappStatus?.status === 'CONNECTED' ? '🟢 LINKED & ACTIVE' : whatsappStatus?.status === 'QR_READY' ? '🟡 SCAN QR CODE TO LINK' : '🔴 DISCONNECTED'}
+                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${whatsappStatus?.provider === 'META_CLOUD' || whatsappStatus?.status === 'CONNECTED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : whatsappStatus?.status === 'QR_READY' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse' : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'}`}>
+                  {whatsappStatus?.provider === 'META_CLOUD' || whatsappStatus?.status === 'CONNECTED' ? '🟢 META CLOUD GATEWAY ACTIVE' : whatsappStatus?.status === 'QR_READY' ? '🟡 SCAN QR CODE TO LINK' : '🔴 DISCONNECTED'}
                 </span>
               </div>
               <p className="text-[11px] text-slate-400">Physical WhatsApp receipts sent automatically to player numbers upon ₹208 registration completion</p>
@@ -249,7 +251,7 @@ export default function AdminDashboardPage() {
               className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-              <span>{whatsappStatus?.qrCode ? 'Refresh QR Code' : 'Generate WhatsApp QR Code'}</span>
+              <span>{whatsappStatus?.provider === 'META_CLOUD' ? 'Refresh WhatsApp Connection' : whatsappStatus?.qrCode ? 'Refresh QR Code' : 'Generate WhatsApp QR Code'}</span>
             </button>
           </div>
         </div>

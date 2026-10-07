@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '@/lib/constants';
 import { io } from 'socket.io-client';
 import {
   Gavel,
@@ -22,7 +23,7 @@ export default function AdminAuctionConsolePage() {
   const [error, setError] = useState('');
   const [imgError, setImgError] = useState(false);
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+  const API_URL = API_BASE_URL;
 
   const getHeaders = () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
