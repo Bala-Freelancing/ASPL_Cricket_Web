@@ -13,3 +13,5 @@ services:
         value: aspl-2026-production-super-secret-jwt-key
       - key: APP_URL
         value: https://idyllic-youtiao-34126e.netlify.app
+      - key: DATABASE_URL
+        value: "file:./dev.db"
