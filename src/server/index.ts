@@ -70,33 +70,46 @@ setupSocketIO(io);
 
 const PORT = Number(process.env.PORT) || CONFIG.PORT || 4000;
 
+server.on('error', (err: any) => {
+  console.error('[SERVER LISTEN ERROR] Failed to bind port:', err);
+});
+
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 IPL Auction Backend Server running on port ${PORT} (0.0.0.0)`);
   console.log(`🏆 Tournament: ${CONFIG.TOURNAMENT_NAME}`);
   console.log(`📱 WhatsApp Sender Account: ${CONFIG.WHATSAPP_BUSINESS_NUMBER}`);
 
-  // Automatic boot verification for admin accounts
-  try {
-    const { prisma: db } = require('../lib/prisma');
-    const { hashPassword: hp } = require('../lib/auth');
-    hp('admin123').then((passwordHash: string) => {
-      db.user.upsert({
+  // Non-blocking background boot seeding for Admin accounts and IPL test data
+  setTimeout(async () => {
+    try {
+      console.log('🌱 Triggering background database verification & seed...');
+      const { prisma: db } = require('../lib/prisma');
+      const { hashPassword: hp } = require('../lib/auth');
+      const passwordHash = await hp('admin123');
+      await db.user.upsert({
         where: { email: 'admin@aspl.com' },
         update: { role: 'ADMIN', passwordHash, isActive: true },
         create: { name: 'Tournament Admin', email: 'admin@aspl.com', phone: '+919999999998', passwordHash, role: 'ADMIN', isActive: true },
-      }).catch(() => {});
-      db.user.upsert({
+      });
+      await db.user.upsert({
         where: { email: 'admin@ipl.com' },
         update: { role: 'ADMIN', passwordHash, isActive: true },
         create: { name: 'Tournament Admin', email: 'admin@ipl.com', phone: '+919999999999', passwordHash, role: 'ADMIN', isActive: true },
-      }).catch(() => {});
-    }).catch(() => {});
-  } catch (e) {}
+      });
+      console.log('✅ Admin Accounts Verified in Background!');
+    } catch (e: any) {
+      console.error('⚠️ Background admin verification error:', e.message);
+    }
 
-  if (CONFIG.WHATSAPP_PROVIDER === 'BAILEYS') {
-    const { initBaileysWhatsApp } = require('../services/whatsapp.service');
-    initBaileysWhatsApp().catch((err: any) => console.error('[WHATSAPP AUTO-INIT ERROR]', err.message));
-  }
+    if (CONFIG.WHATSAPP_PROVIDER === 'BAILEYS') {
+      try {
+        const { initBaileysWhatsApp } = require('../services/whatsapp.service');
+        await initBaileysWhatsApp();
+      } catch (err: any) {
+        console.error('[WHATSAPP AUTO-INIT ERROR]', err.message);
+      }
+    }
+  }, 500);
 });
 
 export { app, server, io };
