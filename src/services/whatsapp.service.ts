@@ -1,11 +1,3 @@
-import makeWASocket, {
-  DisconnectReason,
-  useMultiFileAuthState,
-  fetchLatestBaileysVersion,
-  WASocket,
-} from '@whiskeysockets/baileys';
-// @ts-ignore
-import qrcodeTerminal from 'qrcode-terminal';
 import path from 'path';
 import { prisma } from '../lib/prisma';
 import { CONFIG } from '../lib/config';
@@ -45,7 +37,7 @@ export function normalizePhoneNumber(phone: string): string {
 }
 
 // Global Baileys Web Socket State
-let baileysSock: WASocket | null = null;
+let baileysSock: any = null;
 let qrCodeData: string | null = null;
 let connectionStatus: 'DISCONNECTED' | 'CONNECTING' | 'QR_READY' | 'CONNECTED' = 'DISCONNECTED';
 let isInitializing = false;
@@ -56,6 +48,11 @@ export async function initBaileysWhatsApp(force = false) {
   isInitializing = true;
 
   try {
+    const baileys = require('@whiskeysockets/baileys');
+    const makeWASocket = baileys.default || baileys.makeWASocket || baileys;
+    const { DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion } = baileys;
+    const qrcodeTerminal = require('qrcode-terminal');
+
     const authPath = path.join(process.cwd(), 'baileys_auth_info');
     const { state, saveCreds } = await useMultiFileAuthState(authPath);
     const { version } = await fetchLatestBaileysVersion();
