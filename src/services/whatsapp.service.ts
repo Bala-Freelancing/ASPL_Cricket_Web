@@ -68,7 +68,7 @@ export async function initBaileysWhatsApp(force = false) {
 
     sock.ev.on('creds.update', saveCreds);
 
-    sock.ev.on('connection.update', (update) => {
+    sock.ev.on('connection.update', (update: any) => {
       const { connection, lastDisconnect, qr } = update;
 
       if (qr) {

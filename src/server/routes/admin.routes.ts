@@ -9,6 +9,9 @@ const router = Router();
 
 // Middleware: Enforce Admin Role & Verify DB User Existence
 router.use(async (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ success: false, error: 'Unauthorized' });

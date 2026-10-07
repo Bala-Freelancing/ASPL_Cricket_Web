@@ -32,12 +32,17 @@ const io = new Server(server, {
   },
 });
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-}));
-app.options('*', cors());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
+app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.set('io', io);
 
@@ -73,7 +78,7 @@ app.use('/api/auction', auctionRouter);
 // Initialize Socket.IO Handler
 setupSocketIO(io);
 
-const PORT = Number(process.env.PORT) || CONFIG.PORT || 4000;
+const PORT: number = Number(process.env.PORT || CONFIG.PORT || 4000);
 
 server.on('error', (err: any) => {
   console.error('[SERVER LISTEN ERROR] Failed to bind port:', err);
