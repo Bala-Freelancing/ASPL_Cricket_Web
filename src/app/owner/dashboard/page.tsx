@@ -69,7 +69,10 @@ export default function OwnerDashboardPage() {
     fetchSessionAndTeam();
 
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
-    const newSocket = io(API_URL, { auth: { token } });
+    const newSocket = io(API_URL, {
+      auth: { token },
+      transports: ['websocket', 'polling'],
+    });
 
     newSocket.emit('auction:join');
 

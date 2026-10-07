@@ -43,7 +43,9 @@ export default function Navbar() {
     const interval = setInterval(checkAuctionStatus, 3000); // Check status every 3 seconds
 
     // Real-time socket sync
-    const socket = io(apiUrl);
+    const socket = io(apiUrl, {
+      transports: ['websocket', 'polling'],
+    });
     socket.emit('auction:join');
 
     socket.on('auction:started', () => {

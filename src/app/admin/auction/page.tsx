@@ -59,6 +59,7 @@ export default function AdminAuctionConsolePage() {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
     const newSocket = io(API_URL, {
       auth: { token },
+      transports: ['websocket', 'polling'],
     });
 
     newSocket.on('connect', () => setIsConnected(true));
