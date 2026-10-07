@@ -68,37 +68,35 @@ app.use('/api/auction', auctionRouter);
 // Initialize Socket.IO Handler
 setupSocketIO(io);
 
-const PORT = CONFIG.PORT;
+const PORT = Number(process.env.PORT) || CONFIG.PORT || 4000;
 
-if (require.main === module) {
-  server.listen(PORT, () => {
-    console.log(`🚀 IPL Auction Backend Server running on http://localhost:${PORT}`);
-    console.log(`🏆 Tournament: ${CONFIG.TOURNAMENT_NAME}`);
-    console.log(`📱 WhatsApp Sender Account: ${CONFIG.WHATSAPP_BUSINESS_NUMBER}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 IPL Auction Backend Server running on port ${PORT} (0.0.0.0)`);
+  console.log(`🏆 Tournament: ${CONFIG.TOURNAMENT_NAME}`);
+  console.log(`📱 WhatsApp Sender Account: ${CONFIG.WHATSAPP_BUSINESS_NUMBER}`);
 
-    // Automatic boot verification for admin accounts
-    try {
-      const { prisma: db } = require('../lib/prisma');
-      const { hashPassword: hp } = require('../lib/auth');
-      hp('admin123').then((passwordHash: string) => {
-        db.user.upsert({
-          where: { email: 'admin@aspl.com' },
-          update: { role: 'ADMIN', passwordHash, isActive: true },
-          create: { name: 'Tournament Admin', email: 'admin@aspl.com', phone: '+919999999998', passwordHash, role: 'ADMIN', isActive: true },
-        }).catch(() => {});
-        db.user.upsert({
-          where: { email: 'admin@ipl.com' },
-          update: { role: 'ADMIN', passwordHash, isActive: true },
-          create: { name: 'Tournament Admin', email: 'admin@ipl.com', phone: '+919999999999', passwordHash, role: 'ADMIN', isActive: true },
-        }).catch(() => {});
+  // Automatic boot verification for admin accounts
+  try {
+    const { prisma: db } = require('../lib/prisma');
+    const { hashPassword: hp } = require('../lib/auth');
+    hp('admin123').then((passwordHash: string) => {
+      db.user.upsert({
+        where: { email: 'admin@aspl.com' },
+        update: { role: 'ADMIN', passwordHash, isActive: true },
+        create: { name: 'Tournament Admin', email: 'admin@aspl.com', phone: '+919999999998', passwordHash, role: 'ADMIN', isActive: true },
       }).catch(() => {});
-    } catch (e) {}
+      db.user.upsert({
+        where: { email: 'admin@ipl.com' },
+        update: { role: 'ADMIN', passwordHash, isActive: true },
+        create: { name: 'Tournament Admin', email: 'admin@ipl.com', phone: '+919999999999', passwordHash, role: 'ADMIN', isActive: true },
+      }).catch(() => {});
+    }).catch(() => {});
+  } catch (e) {}
 
-    if (CONFIG.WHATSAPP_PROVIDER === 'BAILEYS') {
-      const { initBaileysWhatsApp } = require('../services/whatsapp.service');
-      initBaileysWhatsApp().catch((err: any) => console.error('[WHATSAPP AUTO-INIT ERROR]', err.message));
-    }
-  });
-}
+  if (CONFIG.WHATSAPP_PROVIDER === 'BAILEYS') {
+    const { initBaileysWhatsApp } = require('../services/whatsapp.service');
+    initBaileysWhatsApp().catch((err: any) => console.error('[WHATSAPP AUTO-INIT ERROR]', err.message));
+  }
+});
 
 export { app, server, io };
