@@ -214,7 +214,7 @@ export default function HomePage() {
                 The Premier Platform for All-Star Cricket Talent
               </h2>
               <p className="text-base text-[#8C97AA] leading-relaxed">
-                All-Star Premier League (ASPL 2026) combines professional tournament management with a realtime digital bidding engine. Players get verified through official gateways, receive digital WhatsApp credentials, and get drafted into franchise squads on live broadcast displays.
+                All-Star Premier League (ASPL 2026) combines professional tournament management with a realtime digital auction engine. Players get verified through official gateways, receive digital WhatsApp credentials, and get drafted into franchise squads on live broadcast displays.
               </p>
             </div>
 
@@ -243,7 +243,7 @@ export default function HomePage() {
                   AUCTION
                 </span>
                 <div className="text-lg font-extrabold text-[#F5B800]">
-                  REAL-TIME BIDDING
+                  REAL-TIME AUCTION
                 </div>
               </div>
 
@@ -272,7 +272,7 @@ export default function HomePage() {
                 LIVE BROADCAST FEATURE
               </div>
               <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
-                Realtime Bidding Engine
+                Realtime Auction Engine
               </h2>
             </div>
 
@@ -323,13 +323,13 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Right Column: Current Highest Bid */}
+              {/* Right Column: Current Highest Offer */}
               <div className="p-6 rounded-xl bg-[#05070D] border border-amber-500/30 space-y-2 text-center lg:text-right">
                 <span className="text-[11px] font-bold text-[#8C97AA] uppercase tracking-widest block">
-                  CURRENT LEADING BID
+                  CURRENT LEADING OFFER
                 </span>
                 <div className="text-4xl md:text-5xl font-black text-[#F5B800] font-mono tracking-tight">
-                  ₹{auction ? auction.currentBid.toLocaleString() : '14,500'}
+                  {auction ? auction.currentBid.toLocaleString() : '14,500'} <span className="text-xs text-amber-400 font-sans uppercase tracking-wider">Credits</span>
                 </div>
                 <div className="text-xs text-white font-bold pt-1">
                   {auction && auction.currentWinningTeam ? auction.currentWinningTeam.name : 'Mumbai Titans'}
@@ -337,25 +337,25 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Recent Bidding Stream Table */}
+            {/* Recent Auction Stream Table */}
             <div className="border-t border-white/[0.08] pt-6 space-y-3">
               <span className="text-[11px] font-bold text-[#8C97AA] uppercase tracking-widest block">
-                RECENT BID LOG STREAM
+                RECENT AUCTION LOG STREAM
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-mono">
                 <div className="p-3 rounded-lg bg-[#05070D] border border-white/[0.05] flex justify-between items-center">
                   <span className="text-[#8C97AA]">Chennai Strikers</span>
-                  <span className="text-white font-bold">₹14,000</span>
+                  <span className="text-white font-bold">14,000 Credits</span>
                 </div>
 
                 <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 flex justify-between items-center text-[#F5B800]">
                   <span className="font-bold">Mumbai Titans (LEADING)</span>
-                  <span className="font-bold">₹14,500</span>
+                  <span className="font-bold">14,500 Credits</span>
                 </div>
 
                 <div className="p-3 rounded-lg bg-[#05070D] border border-white/[0.05] flex justify-between items-center">
                   <span className="text-[#8C97AA]">Delhi Superkings</span>
-                  <span className="text-white font-bold">₹13,000</span>
+                  <span className="text-white font-bold">13,000 Credits</span>
                 </div>
               </div>
             </div>

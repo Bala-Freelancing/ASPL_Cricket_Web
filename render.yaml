@@ -1,8 +1,9 @@
 services:
   - type: web
-    name: ipl-web-api-server
+    name: aspl-backend-api
     env: node
-    buildCommand: npm install --include=dev && npx prisma generate && npx prisma db push && node node_modules/tsx/dist/cli.mjs scripts/seed-test-data.ts && node node_modules/tsx/dist/cli.mjs scripts/ensure-admin.ts
+    plan: free
+    buildCommand: npm install --include=dev && npx prisma generate
     startCommand: node node_modules/tsx/dist/cli.mjs src/server/index.ts
     envVars:
       - key: NODE_ENV
@@ -11,9 +12,29 @@ services:
         value: 20.18.0
       - key: PORT
         value: 10000
-      - key: JWT_SECRET
-        value: aspl-2026-production-super-secret-jwt-key
       - key: APP_URL
         value: https://idyllic-youtiao-34126e.netlify.app
+      - key: TOURNAMENT_NAME
+        value: "ASPL Cricket Tournament 2026"
       - key: DATABASE_URL
-        value: "file:./dev.db"
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CASHFREE_APP_ID
+        sync: false
+      - key: CASHFREE_SECRET_KEY
+        sync: false
+      - key: CASHFREE_ENVIRONMENT
+        value: sandbox
+      - key: CASHFREE_WEBHOOK_SECRET
+        sync: false
+      - key: WHATSAPP_PROVIDER
+        value: MOCK

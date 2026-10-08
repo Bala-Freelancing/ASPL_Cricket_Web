@@ -59,7 +59,7 @@ export default function RefundPage() {
           <h2 className="text-lg font-black text-white">3. Non-Refundable Scenarios</h2>
           <ul className="list-disc pl-5 space-y-1">
             <li><strong>Voluntary Withdrawal:</strong> Once a player successfully registers, pays ₹208, and receives their Player ID Badge, voluntary player cancellation requests are non-refundable.</li>
-            <li><strong>Auction Non-Selection:</strong> Registration fee guarantees entry into the player auction pool. Non-selection by team franchises during auction bidding does not entitle a player to a fee refund.</li>
+            <li><strong>Auction Non-Selection:</strong> Registration fee guarantees entry into the player auction pool. Non-selection by team franchises during the live auction does not entitle a player to a fee refund.</li>
             <li><strong>Disqualification:</strong> Disqualification due to submission of fake Aadhaar details or violation of tournament rules is strictly non-refundable.</li>
           </ul>
         </section>
@@ -67,7 +67,10 @@ export default function RefundPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">4. Refund Process & Timelines</h2>
           <p>
-            Approved refunds are initiated through Cashfree Payments PG directly to your original payment method (Bank Account / UPI ID / Debit Card). Refunds typically reflect within <strong>5 to 7 business days</strong> depending on your issuing bank.
+            Approved registration refunds are initiated through official commercial payment gateways (Cashfree Payments / PhonePe Payment Gateway) directly to your original payment method (Bank Account / UPI ID / Debit Card). Refunds typically reflect within <strong>5 to 7 business days</strong> depending on your issuing bank.
+          </p>
+          <p className="text-xs text-slate-400">
+            <em>Note: Organizer-allocated ASPL Credits are non-monetary tournament credits with zero cash value and cannot be refunded or exchanged for money under any circumstances.</em>
           </p>
         </section>
 

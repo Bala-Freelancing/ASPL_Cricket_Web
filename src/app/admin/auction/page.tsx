@@ -36,6 +36,10 @@ export default function AdminAuctionConsolePage() {
   const fetchAvailablePlayers = async () => {
     try {
       const res = await fetch(`${API_URL}/api/players?status=AVAILABLE`, { headers: getHeaders() });
+      if (res.status === 401 || res.status === 403) {
+        window.location.href = '/login?role=ADMIN';
+        return;
+      }
       const data = await res.json();
       if (data.success) setAvailablePlayers(data.players || []);
     } catch (err) {}
@@ -54,10 +58,15 @@ export default function AdminAuctionConsolePage() {
   };
 
   useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    if (!token) {
+      window.location.href = '/login?role=ADMIN';
+      return;
+    }
+
     fetchAvailablePlayers();
     fetchCurrentAuction();
 
-    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
     const newSocket = io(API_URL, {
       auth: { token },
       transports: ['polling', 'websocket'],
@@ -257,7 +266,7 @@ export default function AdminAuctionConsolePage() {
 
                 <div className="p-2 rounded-lg bg-[#05070D] border border-white/[0.06] flex items-center justify-between text-xs">
                   <span className="text-[#94A3B8]">Base Price</span>
-                  <span className="font-mono font-bold text-[#FFC928]">₹{currentAuction.basePrice.toLocaleString()}</span>
+                  <span className="font-mono font-bold text-[#FFC928]">{currentAuction.basePrice.toLocaleString()} Credits</span>
                 </div>
               </div>
             </div>
@@ -267,7 +276,7 @@ export default function AdminAuctionConsolePage() {
               {/* CURRENT HIGHEST BID BOX */}
               <div className="bg-[#0B101C] border border-[#FFC928]/35 rounded-xl p-5 text-center flex-1 flex flex-col justify-center gap-2 shadow-xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 px-2.5 py-0.5 bg-emerald-500/10 border-l border-b border-emerald-500/30 text-emerald-400 font-bold text-[9px] uppercase tracking-wider">
-                  LIVE BIDDING
+                  LIVE AUCTION
                 </div>
 
                 <span className="text-[11px] font-bold text-[#FFC928] uppercase tracking-widest block">
@@ -275,7 +284,7 @@ export default function AdminAuctionConsolePage() {
                 </span>
 
                 <div className="text-4xl sm:text-5xl font-black text-[#FFC928] font-mono tracking-tight my-1">
-                  ₹{currentAuction.currentBid > 0 ? currentAuction.currentBid.toLocaleString() : currentAuction.basePrice.toLocaleString()}
+                  {currentAuction.currentBid > 0 ? currentAuction.currentBid.toLocaleString() : currentAuction.basePrice.toLocaleString()} <span className="text-xl font-bold text-[#FFC928]">Credits</span>
                 </div>
 
                 <div className="pt-2 border-t border-white/[0.08]">
@@ -326,7 +335,7 @@ export default function AdminAuctionConsolePage() {
                         <span className="block font-bold text-white truncate">{b.team.name}</span>
                         <span className="text-[9px] text-[#94A3B8]">#{b.sequenceNumber || currentAuction.bids.length - idx}</span>
                       </div>
-                      <span className="font-mono text-xs font-black text-[#FFC928] shrink-0">₹{b.amount.toLocaleString()}</span>
+                      <span className="font-mono text-xs font-black text-[#FFC928] shrink-0">{b.amount.toLocaleString()} Credits</span>
                     </div>
                   ))
                 ) : (
@@ -345,10 +354,10 @@ export default function AdminAuctionConsolePage() {
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>
-                MARK SOLD (₹
+                MARK SOLD (
                 {currentAuction.currentBid > 0
                   ? currentAuction.currentBid.toLocaleString()
-                  : currentAuction.basePrice.toLocaleString()}
+                  : currentAuction.basePrice.toLocaleString()} Credits
                 )
               </span>
             </button>
@@ -392,7 +401,7 @@ export default function AdminAuctionConsolePage() {
               disabled={!selectedPlayerId}
               className="w-full py-3.5 rounded-xl bg-[#FFC928] hover:bg-[#ffe066] disabled:opacity-40 text-[#05070D] font-black text-xs shadow-xl shadow-[#FFC928]/20 transition-all cursor-pointer"
             >
-              Start Live Bidding Lot (30s Timer)
+              Start Live Auction Lot (30s Timer)
             </button>
           </div>
         </div>

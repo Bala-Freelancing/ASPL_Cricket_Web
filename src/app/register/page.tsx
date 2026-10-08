@@ -294,16 +294,7 @@ function RegisterFormContent() {
       // Step 3: Launch Cashfree Payment Checkout
       launchCashfreeCheckout(payOrder, regData.player.id);
     } catch (err: any) {
-      // Demo fallback for Netlify when localhost:4000 is unreachable
-      const mockPlayerId = `demo_player_${Date.now()}`;
-      const mockOrderId = `IPL26_ORD_${Date.now()}`;
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('pendingPlayerId', mockPlayerId);
-        window.location.href = `/cashfree-checkout?order_id=${mockOrderId}&amount=208.00&name=${encodeURIComponent(formData.name || 'IPL Player')}`;
-        return;
-      }
-
-      setServerError(err.message || 'An unexpected error occurred');
+      setServerError(err.message || 'An unexpected error occurred during registration.');
       setLoading(false);
     }
   };

@@ -8,6 +8,8 @@ import { io } from 'socket.io-client';
 
 import { usePathname } from 'next/navigation';
 
+import { API_BASE_URL } from '@/lib/constants';
+
 export default function Navbar() {
   const pathname = usePathname();
   const [user, setUser] = useState<any>(null);
@@ -21,7 +23,7 @@ export default function Navbar() {
       setUser(JSON.parse(userData));
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+    const apiUrl = API_BASE_URL;
 
     // Check if an auction is currently active
     const checkAuctionStatus = () => {

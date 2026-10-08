@@ -11,8 +11,8 @@ import {
   Users,
   Sparkles,
   Gavel,
-  Zap,
 } from 'lucide-react';
+import { API_BASE_URL } from '@/lib/constants';
 
 export default function OwnerDashboardPage() {
   const [user, setUser] = useState<any>(null);
@@ -26,7 +26,7 @@ export default function OwnerDashboardPage() {
   const [bidError, setBidError] = useState('');
   const [bidSuccess, setBidSuccess] = useState('');
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+  const API_URL = API_BASE_URL;
 
   const fetchSessionAndTeam = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
@@ -201,9 +201,9 @@ export default function OwnerDashboardPage() {
 
             <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end text-xs">
               <div>
-                <span className="text-[9px] font-bold text-[#94A3B8] uppercase block">Remaining Purse</span>
+                <span className="text-[9px] font-bold text-[#94A3B8] uppercase block">Auction Purse</span>
                 <div className="text-xl font-black text-[#FFC928] font-mono">
-                  ₹{team.remainingPurse.toLocaleString()}
+                  {team.remainingPurse.toLocaleString()} <span className="text-xs font-bold text-amber-400">Credits</span>
                 </div>
               </div>
 
@@ -219,8 +219,8 @@ export default function OwnerDashboardPage() {
           {/* PURSE BUDGET PROGRESS BAR */}
           <div className="space-y-1">
             <div className="flex items-center justify-between text-[10px] text-[#94A3B8] font-semibold">
-              <span>Purse Remaining: {pursePercentage}%</span>
-              <span>Initial Budget: ₹{team.initialPurse.toLocaleString()}</span>
+              <span>Credits Remaining: {pursePercentage}%</span>
+              <span>Initial ASPL Credit Allocation: {team.initialPurse.toLocaleString()} Credits</span>
             </div>
             <div className="w-full h-2 rounded-full bg-[#05070D] border border-white/[0.06] overflow-hidden">
               <div
@@ -316,10 +316,9 @@ export default function OwnerDashboardPage() {
                 </span>
 
                 <div className="text-4xl sm:text-5xl font-black text-[#FFC928] font-mono tracking-tight my-1">
-                  ₹
                   {currentAuction.currentBid > 0
                     ? currentAuction.currentBid.toLocaleString()
-                    : currentAuction.basePrice.toLocaleString()}
+                    : currentAuction.basePrice.toLocaleString()} <span className="text-xl font-bold text-[#FFC928]">Credits</span>
                 </div>
 
                 <div className="pt-2 border-t border-white/[0.08]">
@@ -360,8 +359,8 @@ export default function OwnerDashboardPage() {
                   {isHighestBidder
                     ? 'YOU ARE HIGHEST BIDDER'
                     : !canAfford
-                    ? 'INSUFFICIENT PURSE'
-                    : `PLACE BID (₹${nextBidAmount.toLocaleString()})`}
+                    ? 'INSUFFICIENT ASPL CREDITS'
+                    : `PLACE BID (${nextBidAmount.toLocaleString()} Credits)`}
                 </span>
               </button>
             </div>
@@ -371,10 +370,19 @@ export default function OwnerDashboardPage() {
         /* IDLE AUCTION STATE */
         <div className="bg-[#0B101C] border border-white/[0.08] rounded-xl p-8 text-center space-y-3 my-auto max-w-md mx-auto shadow-2xl">
           <Trophy className="w-12 h-12 text-[#FFC928] mx-auto animate-pulse" />
-          <h2 className="text-xl font-black text-white">No Active Bidding Lot</h2>
+          <h2 className="text-xl font-black text-white">No Active Auction Lot</h2>
           <p className="text-xs text-[#94A3B8]">Waiting for Admin to open the next player lot...</p>
         </div>
       )}
+
+      {/* ASPL CREDITS NON-MONETARY INFORMATION BANNER */}
+      <div className="bg-[#0B101C] border border-amber-500/30 rounded-xl p-3 text-[11px] text-[#94A3B8] flex items-center gap-3">
+        <Sparkles className="w-4 h-4 text-[#FFC928] shrink-0" />
+        <div>
+          <strong className="text-white font-bold">ASPL Auction Credits: </strong>
+          <span>ASPL Credits are non-monetary tournament credits allocated by ASPL for player selection during the ASPL 2026 auction. Credits have no cash value and cannot be purchased, transferred, withdrawn, refunded, redeemed, or exchanged for money. Credits are used exclusively for tournament squad selection.</span>
+        </div>
+      </div>
 
       {/* PURCHASED SQUAD ROSTER SECTION */}
       {team && (
@@ -388,7 +396,7 @@ export default function OwnerDashboardPage() {
             </div>
             <div className="flex items-center gap-4 text-[11px] text-[#94A3B8]">
               <span>Purchased: <strong className="text-white font-mono">{squadLength}</strong></span>
-              <span>Remaining Purse: <strong className="text-[#FFC928] font-mono">₹{team.remainingPurse.toLocaleString()}</strong></span>
+              <span>Remaining Credits: <strong className="text-[#FFC928] font-mono">{team.remainingPurse.toLocaleString()} Credits</strong></span>
             </div>
           </div>
 
@@ -436,7 +444,7 @@ export default function OwnerDashboardPage() {
                     <div className="mt-1 flex items-center justify-between text-[11px]">
                       <span className="text-[9px] font-mono text-[#94A3B8]">{p.playerCode || ''}</span>
                       <span className="font-mono font-black text-[#FFC928] bg-[#FFC928]/10 px-2 py-0.5 rounded border border-[#FFC928]/20">
-                        ₹{p.winningBid ? p.winningBid.toLocaleString() : '0'}
+                        {p.winningBid ? `${p.winningBid.toLocaleString()} Credits` : '0 Credits'}
                       </span>
                     </div>
                   </div>

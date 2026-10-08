@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.git
+.env
+.env.local
+*.log
+baileys_auth_info
+prisma/dev.db
+prisma/dev.db.bak
+scratch

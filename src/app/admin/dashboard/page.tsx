@@ -51,6 +51,10 @@ export default function AdminDashboardPage() {
   const fetchWhatsAppStatus = async () => {
     try {
       const res = await fetch(`${API_URL}/api/admin/whatsapp/status`, { headers: getHeaders() });
+      if (res.status === 401 || res.status === 403) {
+        window.location.href = '/login?role=ADMIN';
+        return;
+      }
       const data = await res.json();
       if (data.success) setWhatsappStatus(data);
     } catch (err) {}
@@ -59,6 +63,10 @@ export default function AdminDashboardPage() {
   const fetchDashboardData = async () => {
     try {
       const statsRes = await fetch(`${API_URL}/api/admin/dashboard`, { headers: getHeaders() });
+      if (statsRes.status === 401 || statsRes.status === 403) {
+        window.location.href = '/login?role=ADMIN';
+        return;
+      }
       const statsData = await statsRes.json();
       if (statsData.success) setStats(statsData.stats);
 
@@ -97,6 +105,11 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    if (!token) {
+      window.location.href = '/login?role=ADMIN';
+      return;
+    }
     fetchDashboardData();
     fetchWhatsAppStatus();
     const interval = setInterval(fetchWhatsAppStatus, 5000);

@@ -81,7 +81,7 @@ router.post('/register', async (req, res) => {
           name,
           phone: normalizedPhone,
           whatsappNumber: normalizedWhatsapp,
-          email,
+          email: playerEmail,
           category,
           age: Number(age),
           dob: dob || null,

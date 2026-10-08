@@ -103,12 +103,12 @@ export async function placeBid({ auctionId, teamOwnerUserId, amount }: PlaceBidI
       : auction.currentBid + auction.minIncrement;
 
   if (amount < minRequiredBid) {
-    throw new Error(`Bid amount ₹${amount} must be at least ₹${minRequiredBid}`);
+    throw new Error(`Bid credits ${amount.toLocaleString()} must be at least ${minRequiredBid.toLocaleString()} Credits`);
   }
 
-  // 4. Team purse validation
+  // 4. Team ASPL Credit purse validation
   if (team.remainingPurse < amount) {
-    throw new Error(`Insufficient team purse balance (Remaining: ₹${team.remainingPurse})`);
+    throw new Error(`Insufficient ASPL Credits in auction purse (Remaining: ${team.remainingPurse.toLocaleString()} Credits)`);
   }
 
   // 5. Squad size validation

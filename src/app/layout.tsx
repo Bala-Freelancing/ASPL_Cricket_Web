@@ -5,7 +5,7 @@ import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
   title: 'ASPL Cricket Tournament 2026 — Live Auction Platform',
-  description: 'Official ASPL 2026 Cricket Tournament player registration & realtime live auction bidding platform.',
+  description: 'Official ASPL 2026 Cricket Tournament player registration & realtime live auction platform.',
 };
 
 export const viewport = {

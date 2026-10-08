@@ -100,4 +100,27 @@ router.post('/webhooks/cashfree', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/payments/webhooks/phonepe
+ * Authentic PhonePe Payment Gateway Webhook Listener.
+ * Validates PhonePe callback signature, processes payment idempotently, and confirms registration.
+ */
+router.post('/webhooks/phonepe', async (req, res) => {
+  try {
+    const payload = {
+      rawBody: req.body,
+      headers: req.headers,
+    };
+
+    const webhookResult = await processPaymentWebhook(payload);
+    if (!webhookResult.success) {
+      return res.status(400).json({ success: false, error: webhookResult.error });
+    }
+
+    return res.status(200).json({ acknowledged: true, ...webhookResult });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 export default router;

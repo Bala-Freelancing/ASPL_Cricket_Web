@@ -18,6 +18,7 @@ import {
   Sparkles,
   Search,
 } from 'lucide-react';
+import { API_BASE_URL } from '@/lib/constants';
 
 export default function PlayerDashboardPage() {
   const [player, setPlayer] = useState<any>(null);
@@ -29,7 +30,7 @@ export default function PlayerDashboardPage() {
   const [imgError, setImgError] = useState(false);
   const router = useRouter();
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+  const API_URL = API_BASE_URL;
 
   const fetchPlayerData = async () => {
     const token = typeof window !== 'undefined' ? localStorage.getItem('token') : '';
@@ -280,9 +281,9 @@ export default function PlayerDashboardPage() {
               </div>
 
               <div className="pt-2 border-t border-white/[0.08]">
-                <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Auction Purchase Amount</span>
+                <span className="text-[10px] font-bold text-[#94A3B8] uppercase block">Auction Final Valuation</span>
                 <div className="text-2xl font-black text-[#FFC928] font-mono mt-0.5">
-                  ₹{player.winningBid ? player.winningBid.toLocaleString() : player.basePrice.toLocaleString()}
+                  {player.winningBid ? player.winningBid.toLocaleString() : player.basePrice.toLocaleString()} <span className="text-xs font-sans">Credits</span>
                 </div>
               </div>
             </div>
@@ -291,22 +292,22 @@ export default function PlayerDashboardPage() {
               <Clock className="w-10 h-10 text-[#FFC928] mx-auto animate-pulse" />
               <h4 className="text-base font-black text-white">AUCTION STATUS</h4>
               <p className="text-xs text-[#94A3B8] leading-relaxed">
-                Your auction lot is pending. Waiting for live bidding lot to begin in Admin Console...
+                Your auction lot is pending. Waiting for live auction lot to begin in Admin Console...
               </p>
             </div>
           )}
         </div>
       </div>
 
-      {/* BIDDING TEAMS HISTORY (IF BIDS EXIST) */}
+      {/* FRANCHISE AUCTION OFFERS HISTORY (IF BIDS EXIST) */}
       {bids.length > 0 && (
         <div className="bg-[#0B101C] border border-white/[0.08] rounded-2xl p-6 space-y-4 shadow-xl">
           <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
             <h3 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
               <Zap className="w-4 h-4 text-[#FFC928]" />
-              <span>BIDDING TEAMS HISTORY ({bids.length})</span>
+              <span>FRANCHISE AUCTION OFFERS ({bids.length})</span>
             </h3>
-            <span className="text-xs text-[#94A3B8]">Teams that placed bids on your lot</span>
+            <span className="text-xs text-[#94A3B8]">Franchises that submitted offers for your lot</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">

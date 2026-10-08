@@ -17,6 +17,9 @@
 # misc
 .DS_Store
 *.pem
+*.mp4
+*.zip
+scratch/
 
 # debug logs
 npm-debug.log*
@@ -40,4 +43,5 @@ next-env.d.ts
 /prisma/*.db-journal
 /prisma/*.db-shm
 /prisma/*.db-wal
+/prisma/*.bak
 /baileys_auth_info/

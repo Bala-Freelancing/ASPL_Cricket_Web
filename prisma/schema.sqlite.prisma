@@ -1,13 +1,13 @@
-// PostgreSQL Prisma Schema for ASPL Cricket Platform (Supabase)
+// SQLite Prisma Schema for ASPL Cricket Platform Backup Reference
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client-sqlite"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model User {

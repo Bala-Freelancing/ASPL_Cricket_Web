@@ -3,6 +3,7 @@ import { CONFIG } from '../lib/config';
 import { generatePlayerCode } from '../lib/player-id';
 import { sendPlayerRegistrationWhatsApp } from './whatsapp.service';
 import { cashfreeProvider } from './cashfree.provider';
+import { phonepeProvider } from './phonepe.provider';
 import {
   IPaymentProvider,
   CreateOrderResult,
@@ -12,10 +13,14 @@ import {
 } from './payment-provider.interface';
 
 /**
- * Returns active payment provider instance (Cashfree by default).
+ * Returns active payment provider instance (Cashfree or PhonePe).
  * Architecture allows seamless registration of alternative payment providers.
  */
 export function getPaymentProvider(): IPaymentProvider {
+  const provider = (CONFIG.PAYMENT_PROVIDER || 'CASHFREE').toUpperCase();
+  if (provider === 'PHONEPE') {
+    return phonepeProvider;
+  }
   return cashfreeProvider;
 }
 

@@ -149,10 +149,9 @@ export default function SpectatorPage() {
               </span>
 
               <div className="text-5xl sm:text-6xl lg:text-7xl font-black text-[#FFC928] font-mono tracking-tight my-1">
-                ₹
                 {currentAuction.currentBid > 0
                   ? currentAuction.currentBid.toLocaleString()
-                  : currentAuction.basePrice.toLocaleString()}
+                  : currentAuction.basePrice.toLocaleString()} <span className="text-2xl font-bold text-[#FFC928]">Credits</span>
               </div>
 
               <div className="pt-3 border-t border-white/[0.08]">
@@ -194,6 +193,15 @@ export default function SpectatorPage() {
                 </div>
               </div>
             </div>
+
+            {/* ASPL CREDITS NOTICE */}
+            <div className="bg-[#0B101C] border border-amber-500/25 rounded-xl p-3 text-[11px] text-[#94A3B8] flex items-center gap-2.5">
+              <Sparkles className="w-4 h-4 text-[#FFC928] shrink-0" />
+              <span>
+                <strong className="text-white font-bold">ASPL Auction Credits: </strong>
+                Non-monetary tournament credits allocated for squad selection. Credits have no monetary cash value.
+              </span>
+            </div>
           </div>
         </div>
       ) : (
@@ -205,7 +213,7 @@ export default function SpectatorPage() {
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-3xl font-black text-white">ASPL STAGE ARENA</h2>
             <p className="text-[#94A3B8] text-xs max-w-md mx-auto">
-              Preparing next player lot for bidding. Live stream will automatically update when auction begins.
+              Preparing next player lot for auction. Live stream will automatically update when auction begins.
             </p>
           </div>
         </div>

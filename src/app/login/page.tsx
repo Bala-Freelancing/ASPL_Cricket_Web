@@ -5,6 +5,8 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Trophy, User, Building2, ShieldCheck, ArrowRight, ArrowLeft, Lock, Hash, Mail, Sparkles, Eye, EyeOff } from 'lucide-react';
 
+import { API_BASE_URL } from '@/lib/constants';
+
 type RoleType = 'PLAYER' | 'TEAM_OWNER' | 'ADMIN';
 
 function LoginContent() {
@@ -18,7 +20,7 @@ function LoginContent() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://aspl-cricket-web.onrender.com';
+  const API_URL = API_BASE_URL;
 
   useEffect(() => {
     const roleQuery = searchParams.get('role')?.toUpperCase();
