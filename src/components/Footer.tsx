@@ -19,7 +19,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="text-slate-400 text-xs leading-relaxed">
-            Official All-Star Premier League (ASPL 2026) Player Registration & Live Auction Platform. Powered by Cashfree Payments.
+            Official All-Star Premier League (ASPL 2026) Player Registration & Real-Time Squad Selection Platform.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* CASHFREE MANDATORY LEGAL COMPLIANCE LINKS */}
+        {/* MANDATORY LEGAL COMPLIANCE LINKS */}
         <div className="space-y-3">
           <h4 className="font-black text-amber-400 uppercase text-xs tracking-wider border-b border-slate-800 pb-2 flex items-center gap-1.5">
             <ShieldCheck className="w-4 h-4" /> Legal & Policies
@@ -86,7 +86,9 @@ export default function Footer() {
       <div className="border-t border-slate-900 py-6 text-center text-[11px] text-slate-500">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <span>© 2026 ASPL Cricket Tournament. All rights reserved.</span>
-          <span>Verified Merchant for Cashfree Payment Gateway (RBI Compliant)</span>
+          <span className="flex items-center gap-1.5 text-slate-400 font-medium">
+            <ShieldCheck className="w-4 h-4 text-emerald-400" /> Payment Gateway: Cashfree Payments
+          </span>
         </div>
       </div>
     </footer>

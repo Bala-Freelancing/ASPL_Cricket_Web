@@ -92,7 +92,7 @@ export default function OwnerDashboardPage() {
       setCurrentAuction(data.auction);
       setTimerSeconds(60);
       if (data.winningTeam?.id === team?.id) {
-        setBidSuccess(`Your bid of ₹${data.bid.amount.toLocaleString()} was accepted!`);
+        setBidSuccess(`Your bid of ${data.bid.amount.toLocaleString()} Credits was accepted!`);
         setBidError('');
       }
     });
@@ -161,7 +161,7 @@ export default function OwnerDashboardPage() {
 
       if (data.auction) {
         setCurrentAuction(data.auction);
-        setBidSuccess(`Your bid of ₹${nextAmount.toLocaleString()} was accepted!`);
+        setBidSuccess(`Your bid of ${nextAmount.toLocaleString()} Credits was accepted!`);
       }
     } catch (err: any) {
       setBidError(err.message || 'Error placing bid');
@@ -391,16 +391,16 @@ export default function OwnerDashboardPage() {
             <div className="flex items-center gap-2 text-white font-bold">
               <Users className="w-4 h-4 text-[#FFC928]" />
               <span className="uppercase tracking-wide text-[11px]">
-                PURCHASED SQUAD ROSTER ({squadLength} / {maxSquad} PLAYERS)
+                SELECTED SQUAD ROSTER ({squadLength} / {maxSquad} PLAYERS)
               </span>
             </div>
             <div className="flex items-center gap-4 text-[11px] text-[#94A3B8]">
-              <span>Purchased: <strong className="text-white font-mono">{squadLength}</strong></span>
+              <span>Selected: <strong className="text-white font-mono">{squadLength}</strong></span>
               <span>Remaining Credits: <strong className="text-[#FFC928] font-mono">{team.remainingPurse.toLocaleString()} Credits</strong></span>
             </div>
           </div>
 
-          {/* PURCHASED PLAYERS CARDS TRACK */}
+          {/* SELECTED PLAYERS CARDS TRACK */}
           {team.players && team.players.length > 0 ? (
             <div className="flex items-center gap-3 overflow-x-auto py-1 max-h-[115px]">
               {team.players.map((p: any) => (

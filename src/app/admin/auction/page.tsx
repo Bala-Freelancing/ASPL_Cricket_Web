@@ -391,7 +391,7 @@ export default function AdminAuctionConsolePage() {
               <option value="">-- Choose Player --</option>
               {availablePlayers.map((p) => (
                 <option key={p.id} value={p.id}>
-                  {p.playerCode || 'ASPL'} — {p.name} ({p.category}) • Base: ₹{p.basePrice?.toLocaleString() || '5,000'}
+                  {p.playerCode || 'ASPL'} — {p.name} ({p.category}) • Base: {p.basePrice?.toLocaleString() || '5,000'} Credits
                 </option>
               ))}
             </select>

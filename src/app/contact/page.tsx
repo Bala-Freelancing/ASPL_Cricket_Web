@@ -89,7 +89,7 @@ export default function ContactPage() {
               <label className="block text-xs font-bold text-slate-300 mb-1.5">Subject / Message</label>
               <textarea
                 rows={3}
-                placeholder="Describe your inquiry regarding registration fee, Cashfree payment, or auction..."
+                placeholder="Describe your inquiry regarding player registration fee, payment, or squad selection auction..."
                 className="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-white text-xs focus:outline-none focus:border-amber-500"
               ></textarea>
             </div>

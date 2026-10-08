@@ -26,7 +26,10 @@ export default function RefundPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">1. Registration Fee Overview</h2>
           <p>
-            The player registration fee for <strong>ASPL Cricket Tournament 2026 is ₹208.00 (Rupees Two Hundred and Eight Only)</strong>. This fee covers administrative costs, player ID card badge generation, verification checks, and inclusion into the official ASPL 2026 Auction Pool.
+            The payment of <strong>₹208.00 (Rupees Two Hundred and Eight Only)</strong> is strictly the <strong>One-time Player Registration Fee</strong> for the <strong>ASPL Cricket Tournament 2026</strong>. This fee covers administrative processing, player identity verification by tournament organizers, and entry into the official tournament player pool.
+          </p>
+          <p className="text-xs text-slate-400">
+            The registration fee is exclusively for tournament registration. It is NOT a payment for auction participation, bidding, purchasing credits, winning a team, or winning a match.
           </p>
         </section>
 
@@ -67,10 +70,10 @@ export default function RefundPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">4. Refund Process & Timelines</h2>
           <p>
-            Approved registration refunds are initiated through official commercial payment gateways (Cashfree Payments / PhonePe Payment Gateway) directly to your original payment method (Bank Account / UPI ID / Debit Card). Refunds typically reflect within <strong>5 to 7 business days</strong> depending on your issuing bank.
+            Approved registration refunds are initiated through our payment gateway (Cashfree Payments) directly to your original payment method (Bank Account / UPI ID / Debit Card). Refunds typically reflect within <strong>5 to 7 business days</strong> depending on your issuing bank.
           </p>
           <p className="text-xs text-slate-400">
-            <em>Note: Organizer-allocated ASPL Credits are non-monetary tournament credits with zero cash value and cannot be refunded or exchanged for money under any circumstances.</em>
+            <em>Note: ASPL Credits are non-monetary tournament credits allocated by ASPL for player selection during the ASPL 2026 auction. They have no cash value and cannot be purchased, transferred, withdrawn, refunded, redeemed, or exchanged for money.</em>
           </p>
         </section>
 

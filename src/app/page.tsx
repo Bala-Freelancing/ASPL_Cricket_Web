@@ -135,7 +135,7 @@ export default function HomePage() {
               }}
             >
               <span style={{ color: '#FFC928' }}>₹{summary.stats.fee}</span>
-              <span>• ONE-TIME REGISTRATION</span>
+              <span>• ONE-TIME PLAYER REGISTRATION FEE</span>
             </div>
           </div>
         </div>
@@ -211,22 +211,29 @@ export default function HomePage() {
             {/* Left Side: Editorial Description */}
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
-                The Premier Platform for All-Star Cricket Talent
+                Cricket Tournament Registration & Live Squad Selection
               </h2>
               <p className="text-base text-[#8C97AA] leading-relaxed">
-                All-Star Premier League (ASPL 2026) combines professional tournament management with a realtime digital auction engine. Players get verified through official gateways, receive digital WhatsApp credentials, and get drafted into franchise squads on live broadcast displays.
+                ASPL 2026 is an offline cricket tournament registration and tournament management platform. Players pay a one-time ₹208 registration fee to participate in the tournament. Registered players are verified by the tournament organizers and may subsequently be selected by authorized team owners through an organizer-managed live player auction.
               </p>
+              <div className="p-4 rounded-xl bg-[#05070D] border border-white/[0.08] text-xs text-[#8C97AA] space-y-1.5">
+                <strong className="text-white font-bold block">Tournament Squad Selection Policy:</strong>
+                <p>
+                  The player auction is a tournament squad-selection process and is not a betting or gambling activity. No participant wagers money, and no participant receives money based on match or auction outcomes. Team owners use non-monetary ASPL Credits allocated exclusively for squad selection.
+                </p>
+              </div>
             </div>
 
             {/* Right Side: Key Metadata Grid */}
             <div className="grid grid-cols-2 gap-6">
               <div className="p-6 rounded-xl bg-[#05070D] border border-white/[0.08] space-y-2">
                 <span className="text-[11px] font-bold text-[#8C97AA] uppercase tracking-widest block">
-                  REGISTRATION
+                  REGISTRATION FEE
                 </span>
                 <div className="text-2xl font-black text-white font-mono">
                   ₹{summary.stats.fee}
                 </div>
+                <span className="text-[10px] text-[#8C97AA] block">One-time Player Fee</span>
               </div>
 
               <div className="p-6 rounded-xl bg-[#05070D] border border-white/[0.08] space-y-2">
@@ -236,24 +243,27 @@ export default function HomePage() {
                 <div className="text-2xl font-black text-white font-mono">
                   15 PLAYERS
                 </div>
+                <span className="text-[10px] text-[#8C97AA] block">Official Squad Limit</span>
               </div>
 
               <div className="p-6 rounded-xl bg-[#05070D] border border-white/[0.08] space-y-2">
                 <span className="text-[11px] font-bold text-[#8C97AA] uppercase tracking-widest block">
-                  AUCTION
+                  SQUAD SELECTION
                 </span>
                 <div className="text-lg font-extrabold text-[#F5B800]">
-                  REAL-TIME AUCTION
+                  LIVE AUCTION
                 </div>
+                <span className="text-[10px] text-[#8C97AA] block">Non-monetary Credits</span>
               </div>
 
               <div className="p-6 rounded-xl bg-[#05070D] border border-white/[0.08] space-y-2">
                 <span className="text-[11px] font-bold text-[#8C97AA] uppercase tracking-widest block">
-                  PLAYER ID
+                  PLAYER STATUS
                 </span>
                 <div className="text-lg font-extrabold text-[#22C55E]">
-                  WHATSAPP VERIFIED
+                  VERIFIED BADGE
                 </div>
+                <span className="text-[10px] text-[#8C97AA] block">Organizers Verified</span>
               </div>
             </div>
           </div>
@@ -358,6 +368,15 @@ export default function HomePage() {
                   <span className="text-white font-bold">13,000 Credits</span>
                 </div>
               </div>
+            </div>
+
+            {/* ASPL CREDITS NOTICE */}
+            <div className="border-t border-white/[0.08] pt-4 text-xs text-[#8C97AA] flex items-start gap-2.5">
+              <span className="text-[#F5B800] font-bold">ℹ️</span>
+              <p>
+                <strong className="text-white font-bold">Notice on ASPL Credits: </strong>
+                ASPL Credits are non-monetary tournament credits allocated by ASPL for player selection during the ASPL 2026 auction. They have no cash value and cannot be purchased, transferred, withdrawn, refunded, redeemed, or exchanged for money. Credits are used exclusively for tournament squad selection.
+              </p>
             </div>
           </div>
         </div>

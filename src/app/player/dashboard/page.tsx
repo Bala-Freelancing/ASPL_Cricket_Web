@@ -319,7 +319,7 @@ export default function PlayerDashboardPage() {
                   </div>
                   <span className="text-xs font-bold text-white truncate">{b.team?.name || 'Franchise'}</span>
                 </div>
-                <span className="text-xs font-mono font-black text-[#FFC928]">₹{b.amount.toLocaleString()}</span>
+                <span className="text-xs font-mono font-black text-[#FFC928]">{b.amount.toLocaleString()} Credits</span>
               </div>
             ))}
           </div>

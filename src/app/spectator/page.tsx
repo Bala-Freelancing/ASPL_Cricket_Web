@@ -198,8 +198,8 @@ export default function SpectatorPage() {
             <div className="bg-[#0B101C] border border-amber-500/25 rounded-xl p-3 text-[11px] text-[#94A3B8] flex items-center gap-2.5">
               <Sparkles className="w-4 h-4 text-[#FFC928] shrink-0" />
               <span>
-                <strong className="text-white font-bold">ASPL Auction Credits: </strong>
-                Non-monetary tournament credits allocated for squad selection. Credits have no monetary cash value.
+                <strong className="text-white font-bold">ASPL Credits Notice: </strong>
+                ASPL Credits are non-monetary tournament credits allocated by ASPL for player selection during the ASPL 2026 auction. They have no cash value and cannot be purchased, transferred, withdrawn, refunded, redeemed, or exchanged for money. Credits are used exclusively for tournament squad selection.
               </span>
             </div>
           </div>

@@ -253,7 +253,7 @@ export default function AdminDashboardPage() {
                   {whatsappStatus?.provider === 'META_CLOUD' || whatsappStatus?.status === 'CONNECTED' ? '🟢 META CLOUD GATEWAY ACTIVE' : whatsappStatus?.status === 'QR_READY' ? '🟡 SCAN QR CODE TO LINK' : '🔴 DISCONNECTED'}
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400">Physical WhatsApp receipts sent automatically to player numbers upon ₹208 registration completion</p>
+              <p className="text-[11px] text-slate-400">WhatsApp receipts sent automatically to player numbers upon ₹208 Player Registration Fee completion</p>
             </div>
           </div>
 
@@ -370,7 +370,7 @@ export default function AdminDashboardPage() {
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="block text-xs text-slate-300 mb-1">Purse (₹)</label>
+                <label className="block text-xs text-slate-300 mb-1">Purse (Credits)</label>
                 <input
                   type="number"
                   value={teamForm.initialPurse}
@@ -518,7 +518,7 @@ export default function AdminDashboardPage() {
               <div key={t.id} className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs space-y-1">
                 <div className="flex items-center justify-between font-bold text-white">
                   <span>{t.name} ({t.shortCode})</span>
-                  <span className="text-amber-400 font-mono">₹{t.remainingPurse.toLocaleString()}</span>
+                  <span className="text-amber-400 font-mono">{t.remainingPurse.toLocaleString()} Credits</span>
                 </div>
                 <div className="flex items-center justify-between text-[11px] text-slate-400">
                   <span>Owner: {t.owner ? t.owner.name : 'Unassigned'}</span>
@@ -583,7 +583,7 @@ export default function AdminDashboardPage() {
                   <td className="py-3 px-2 font-mono font-bold text-amber-400">{p.playerCode || '—'}</td>
                   <td className="py-3 px-2 font-semibold text-white">{p.name}</td>
                   <td className="py-3 px-2">{p.category}</td>
-                  <td className="py-3 px-2 font-mono">₹{p.basePrice.toLocaleString()}</td>
+                  <td className="py-3 px-2 font-mono">{p.basePrice.toLocaleString()} Credits</td>
                   <td className="py-3 px-2">
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${p.paymentStatus === 'SUCCESS' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-yellow-500/20 text-yellow-400'}`}>
                       {p.paymentStatus}

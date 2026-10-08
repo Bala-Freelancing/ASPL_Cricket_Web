@@ -315,7 +315,7 @@ function RegisterFormContent() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFC928]/10 border border-[#FFC928]/25 text-[#FFC928] text-[11px] font-bold mb-2">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>₹208 · ONE-TIME REGISTRATION</span>
+              <span>₹208 · ONE-TIME PLAYER REGISTRATION FEE</span>
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Join ASPL 2026</h1>
             <p className="text-xs md:text-sm text-[#94A3B8] mt-0.5">
@@ -367,7 +367,7 @@ function RegisterFormContent() {
               </div>
               <div className="flex items-center justify-between border-b border-white/[0.08] pb-2">
                 <span>Payment Amount:</span>
-                <strong className="text-emerald-400 font-bold">₹208.00 (VERIFIED VIA CASHFREE)</strong>
+                <strong className="text-emerald-400 font-bold">₹208.00 (Payment Completed)</strong>
               </div>
               <div className="flex items-center justify-between">
                 <span>WhatsApp Receipt:</span>
@@ -864,10 +864,10 @@ function RegisterFormContent() {
                       <div className="p-4 rounded-xl bg-[#05070D] border border-white/[0.08] flex items-center justify-between">
                         <div>
                           <span className="block text-xs font-semibold text-white">Auction Base Price</span>
-                          <span className="block text-[10px] text-[#94A3B8]">Set by tournament organizers</span>
+                          <span className="block text-[10px] text-[#94A3B8]">Set by tournament organizers (Non-monetary ASPL Credits)</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-lg font-black text-[#FFC928]">₹5,000</span>
+                          <span className="text-lg font-black text-[#FFC928]">5,000 Credits</span>
                         </div>
                       </div>
 
@@ -1035,21 +1035,24 @@ function RegisterFormContent() {
                         </span>
                         <div className="space-y-2 text-xs text-[#94A3B8] border-b border-white/[0.08] pb-3">
                           <div className="flex items-center justify-between">
-                            <span>Registration Fee</span>
+                            <span>One-time Player Registration Fee</span>
                             <span className="text-white font-semibold">₹208</span>
                           </div>
                           <div className="flex items-center justify-between text-[#94A3B8]">
-                            <span>Tax / Gateways</span>
+                            <span>Taxes & Processing</span>
                             <span className="text-emerald-400 font-semibold">Included</span>
                           </div>
                         </div>
                         <div className="flex items-center justify-between text-base font-extrabold text-white">
-                          <span>TOTAL</span>
+                          <span>TOTAL PAYABLE</span>
                           <span className="text-2xl text-[#FFC928]">₹208</span>
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-[#94A3B8]">
-                          <Lock className="w-3.5 h-3.5 text-emerald-400" />
-                          <span>Secure Payment via Cashfree Payments Gateway</span>
+                        <div className="flex flex-col gap-1 text-[11px] text-[#94A3B8]">
+                          <div className="flex items-center gap-1.5 text-slate-300">
+                            <Lock className="w-3.5 h-3.5 text-emerald-400" />
+                            <span>Payment is required to complete player registration.</span>
+                          </div>
+                          <span className="text-[10px] text-slate-400">Payment Gateway: Cashfree Payments</span>
                         </div>
                       </div>
                     </div>
@@ -1103,7 +1106,7 @@ function RegisterFormContent() {
                     REGISTRATION SUMMARY
                   </span>
                   <div className="text-3xl font-extrabold text-white mt-1">₹208</div>
-                  <span className="text-[11px] text-[#94A3B8]">Official Player Entry Fee</span>
+                  <span className="text-[11px] text-[#94A3B8]">One-time Player Registration Fee</span>
                 </div>
 
                 <div className="space-y-3 pt-3 border-t border-white/[0.08] text-xs">

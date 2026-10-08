@@ -170,7 +170,7 @@ function LoginContent() {
     },
     TEAM_OWNER: {
       title: 'TEAM OWNER LOGIN',
-      subtitle: 'Manage your squad, purse and live bids',
+      subtitle: 'Manage your squad selection, ASPL Credits and live bids',
       icon: Building2,
       label: 'Owner Email / Username',
       placeholder: 'owner@csk.com',

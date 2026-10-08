@@ -42,7 +42,7 @@ export default function PrivacyPage() {
             <li>To verify player identity and issue official ASPL Player Badges (e.g. IPL26-P0001).</li>
             <li>To dispatch payment receipts and tournament updates via WhatsApp and Email.</li>
             <li>To display player statistics during the live auction to authorized team franchises.</li>
-            <li>To process secure ₹208 registration payments via Cashfree Payment Gateway.</li>
+            <li>To process secure ₹208 Player Registration Fee payments via Cashfree Payment Gateway.</li>
           </ul>
         </section>
 
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">4. Third-Party Sharing</h2>
           <p>
-            We do not sell, trade, or rent your personal information to third parties. Data is shared exclusively with Cashfree Payments for transaction verification and Baileys WhatsApp Service for automated receipt dispatch.
+            We do not sell, trade, or rent your personal information to third parties. Data is shared exclusively with our payment gateway (Cashfree Payments) for transaction verification and messaging service providers for automated receipt dispatch.
           </p>
         </section>
 

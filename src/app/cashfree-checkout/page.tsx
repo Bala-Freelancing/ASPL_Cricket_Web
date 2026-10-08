@@ -60,7 +60,7 @@ function CashfreeCheckoutContent() {
           </div>
           <div>
             <h1 className="text-sm font-black text-white tracking-wide uppercase">Cashfree Payments</h1>
-            <p className="text-[10px] text-slate-400">Official Merchant Payment Gateway</p>
+            <p className="text-[10px] text-slate-400">Payment Gateway</p>
           </div>
         </div>
 
@@ -75,8 +75,8 @@ function CashfreeCheckoutContent() {
         {/* ORDER SUMMARY HEADER */}
         <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs font-bold">
           <div>
-            <span className="text-slate-400 text-[10px] uppercase tracking-wider block font-semibold">Merchant</span>
-            <span className="text-white text-sm">Mini IPL 2026 Tournament</span>
+            <span className="text-slate-400 text-[10px] uppercase tracking-wider block font-semibold">Tournament</span>
+            <span className="text-white text-sm">ASPL Cricket Tournament 2026</span>
             <span className="text-slate-500 text-[10px] block font-mono">Order ID: {orderId}</span>
           </div>
           <div className="text-right">

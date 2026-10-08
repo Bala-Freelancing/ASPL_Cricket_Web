@@ -24,9 +24,12 @@ export default function TermsPage() {
 
       <div className="bento-card p-8 md:p-10 space-y-6 leading-relaxed border-slate-800">
         <section className="space-y-3">
-          <h2 className="text-lg font-black text-white">1. Introduction & Acceptance</h2>
+          <h2 className="text-lg font-black text-white">1. Introduction & Business Model</h2>
           <p>
-            Welcome to the official registration portal of <strong>ASPL Cricket Tournament 2026</strong> (&quot;ASPL&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By registering as a player or accessing our website, you agree to comply with and be bound by these Terms and Conditions. Please read them carefully before submitting your player application.
+            Welcome to the official registration portal of <strong>ASPL Cricket Tournament 2026</strong> (&quot;ASPL&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). ASPL 2026 is an offline cricket tournament registration and tournament management platform. Players pay a one-time ₹208 registration fee to participate in the tournament. Registered players are verified by tournament organizers and may subsequently be selected by authorized team owners through an organizer-managed live player auction.
+          </p>
+          <p>
+            The player auction is a tournament squad-selection process and is not a betting or gambling activity. No participant wagers money, and no participant receives money based on match or auction outcomes. By registering as a player or accessing our website, you agree to comply with and be bound by these Terms and Conditions.
           </p>
         </section>
 
@@ -42,22 +45,22 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">3. Player Registration Fee & Payment Terms</h2>
           <p>
-            An official <strong>ASPL 2026 Player Registration Fee</strong> of <strong>₹208.00 (Inclusive of Taxes & Processing Fees)</strong> is required to complete player registration. Payment is processed securely through official commercial payment gateways (Cashfree Payments / PhonePe Payment Gateway).
+            An official <strong>One-time ASPL 2026 Player Registration Fee</strong> of <strong>₹208.00 (Inclusive of Taxes & Processing Fees)</strong> is required to complete player registration. Payment is processed securely through our payment gateway (Cashfree Payments).
           </p>
           <p>
-            Upon successful payment verification, an official <strong>Player ID Badge (e.g. IPL26-P0001)</strong> and digital receipt will be issued and dispatched via WhatsApp.
+            Upon successful payment verification, an official <strong>Player ID Badge (e.g. IPL26-P0001)</strong> and digital receipt will be issued and dispatched via WhatsApp. Payment is strictly the tournament player registration fee and does not constitute a fee for bidding, auction participation, or gambling.
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="text-lg font-black text-white">4. ASPL Auction Credits & Squad Selection Rules</h2>
           <p>
-            Registration fee guarantees verified entry into the ASPL 2026 Player Pool for squad selection. Squad selection during the online auction is conducted using organizer-allocated <strong>ASPL Credits</strong>.
+            Registration fee guarantees verified entry into the ASPL 2026 Player Pool for squad selection. Squad selection during the auction is conducted using organizer-allocated <strong>ASPL Credits</strong>.
           </p>
           <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-1">
             <strong className="block text-white font-bold">Important Notice on ASPL Credits:</strong>
             <p>
-              ASPL Credits are non-monetary tournament credits allocated by the organizing committee exclusively for team owner squad selection. ASPL Credits have no cash value and cannot be purchased, top-up funded, transferred between accounts, withdrawn, refunded as money, or exchanged for real cash. There is zero wagering, gambling, or real-money transactions involved in the auction process.
+              ASPL Credits are non-monetary tournament credits allocated by ASPL for player selection during the ASPL 2026 auction. They have no cash value and cannot be purchased, transferred, withdrawn, refunded, redeemed, or exchanged for money. Credits are used exclusively for tournament squad selection. There is zero betting, gambling, wagering, or cash payouts based on match or auction outcomes.
             </p>
           </div>
         </section>
