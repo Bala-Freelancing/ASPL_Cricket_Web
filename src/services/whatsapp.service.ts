@@ -182,6 +182,43 @@ class MetaCloudWhatsAppProvider implements IWhatsAppProvider {
 
     if (CONFIG.WHATSAPP_API_TOKEN && CONFIG.WHATSAPP_PHONE_NUMBER_ID) {
       try {
+        const templateName = CONFIG.WHATSAPP_TEMPLATE_NAME || 'player_registration_success';
+        const loginUrl = process.env.PLAYER_LOGIN_URL || (process.env.PUBLIC_APP_URL ? `${process.env.PUBLIC_APP_URL}/login` : 'https://asplcricket.netlify.app/login');
+
+        // 1. Try sending via Meta Template first (Required for Business-Initiated conversations)
+        let templatePayload: any;
+        if (templateName === 'hello_world') {
+          templatePayload = {
+            messaging_product: 'whatsapp',
+            to: recipientDigits,
+            type: 'template',
+            template: {
+              name: 'hello_world',
+              language: { code: 'en_US' },
+            },
+          };
+        } else {
+          templatePayload = {
+            messaging_product: 'whatsapp',
+            to: recipientDigits,
+            type: 'template',
+            template: {
+              name: templateName,
+              language: { code: 'en' },
+              components: [
+                {
+                  type: 'body',
+                  parameters: [
+                    { type: 'text', text: params.playerName },
+                    { type: 'text', text: params.playerCode },
+                    { type: 'text', text: loginUrl },
+                  ],
+                },
+              ],
+            },
+          };
+        }
+
         let response = await fetch(
           `https://graph.facebook.com/v18.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`,
           {
@@ -190,19 +227,15 @@ class MetaCloudWhatsAppProvider implements IWhatsAppProvider {
               Authorization: `Bearer ${CONFIG.WHATSAPP_API_TOKEN}`,
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              messaging_product: 'whatsapp',
-              to: recipientDigits,
-              type: 'text',
-              text: { body: messageText },
-            }),
+            body: JSON.stringify(templatePayload),
           }
         );
 
         let data: any = await response.json();
 
-        // If direct text is restricted by Meta test mode, fallback to Meta template
+        // 2. If template fails (e.g. template not yet approved), fallback to direct text
         if (!response.ok) {
+          console.warn('[META CLOUD TEMPLATE FAILED, FALLING BACK TO DIRECT TEXT]', data?.error?.message);
           response = await fetch(
             `https://graph.facebook.com/v18.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`,
             {
@@ -214,11 +247,8 @@ class MetaCloudWhatsAppProvider implements IWhatsAppProvider {
               body: JSON.stringify({
                 messaging_product: 'whatsapp',
                 to: recipientDigits,
-                type: 'template',
-                template: {
-                  name: 'hello_world',
-                  language: { code: 'en_US' },
-                },
+                type: 'text',
+                text: { body: messageText },
               }),
             }
           );
@@ -449,6 +479,35 @@ export async function sendOwnerInviteWhatsApp(
     const normalized = normalizePhoneNumber(phone);
     const messageText = `🏆 *ASPL 2026 — Team Owner Invitation*\n\nHello! You have been invited to become the official Team Owner of *${teamName}* for ASPL 2026.\n\nClick the secure link below to set up your account credentials:\n👉 ${invitationUrl}\n\n*Note:* This activation link is valid for 48 hours. Do not share this link with anyone else.`;
 
+    // 1. Meta Cloud API Provider
+    if (CONFIG.WHATSAPP_PROVIDER === 'META_CLOUD' && CONFIG.WHATSAPP_API_TOKEN && CONFIG.WHATSAPP_PHONE_NUMBER_ID) {
+      try {
+        const recipientDigits = normalized.replace(/\+/g, '');
+        const response = await fetch(
+          `https://graph.facebook.com/v18.0/${CONFIG.WHATSAPP_PHONE_NUMBER_ID}/messages`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${CONFIG.WHATSAPP_API_TOKEN}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              messaging_product: 'whatsapp',
+              to: recipientDigits,
+              type: 'text',
+              text: { body: messageText },
+            }),
+          }
+        );
+        if (response.ok) {
+          return { success: true };
+        }
+      } catch (e: any) {
+        console.warn('[META CLOUD OWNER INVITE DISPATCH WARNING]', e.message);
+      }
+    }
+
+    // 2. Baileys Provider
     if (baileysSock && connectionStatus === 'CONNECTED') {
       const recipientDigits = normalized.replace(/\+/g, '');
       const jid = `${recipientDigits}@s.whatsapp.net`;
@@ -456,7 +515,13 @@ export async function sendOwnerInviteWhatsApp(
       return { success: true };
     }
 
-    return { success: false, error: 'WhatsApp sender device is disconnected' };
+    // 3. Mock Provider / Fallback
+    if (CONFIG.WHATSAPP_PROVIDER === 'MOCK' || !CONFIG.WHATSAPP_API_TOKEN) {
+      console.log(`[WHATSAPP MOCK OWNER INVITE] Sent to ${normalized}: ${invitationUrl}`);
+      return { success: true };
+    }
+
+    return { success: false, error: 'WhatsApp sender is not connected' };
   } catch (err: any) {
     console.error('Failed to send owner invitation WhatsApp:', err);
     return { success: false, error: err.message };
